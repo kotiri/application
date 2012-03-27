@@ -30,7 +30,7 @@ if node.has_key?("cloud")
   server_aliases << node['cloud']['public_hostname']
 end
   
-web_app app['id'] do
+apache2_web_app app['id'] do
   docroot "#{app['deploy_to']}/current/public"
   template "#{app['id']}.conf.erb"
   cookbook app['id']
