@@ -31,13 +31,15 @@ if node.has_key?("cloud")
 end
   
 apache2_web_app app['id'] do
-  docroot "#{app['deploy_to']}/current/public"
   template "#{app['id']}.conf.erb"
-  cookbook app['id']
-  server_name "#{app['id']}.#{node['domain']}"
-  server_aliases server_aliases
-  log_dir node['apache']['log_dir']
-  rails_env node.chef_environment
+  params({
+    'docroot' => "#{app['deploy_to']}/current/public",
+    'cookbook' => app['id'],
+    'server_name' => "#{app['id']}.#{node['domain']}",
+    'server_aliases' => server_aliases,
+    'log_dir' => node['apache']['log_dir'],
+    'rails_env' => node.chef_environment
+  })
 end
 
 if ::File.exists?(::File.join(app['deploy_to'], "current"))
