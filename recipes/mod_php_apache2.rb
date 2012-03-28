@@ -51,5 +51,5 @@ if ::File.exists?(::File.join(app['deploy_to'], "current"))
 end
 
 apache2_site "000-default" do
-  enable false
+  action :disable
 end
